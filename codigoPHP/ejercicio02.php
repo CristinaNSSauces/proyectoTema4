@@ -10,18 +10,14 @@
         /**
             *@author: Cristina Núñez
             *@since: 27/10/2020
-            * Mostrar el contenido de la tabla Departamento y el número de registros.
+            *@description: Mostrar el contenido de la tabla Departamento y el número de registros
         */ 
-            
-        require_once "../config/confDBPDO.php";//Incluimos el archivo confDBPDO.php para poder acceder al valor de las constantes de los distintos valores de la conexión 
             try {
-                echo "<h3>Con consulta preparada</h3>";
-                $miDB = new PDO(DNS,USER,PASSWORD);//Instanciamos un objeto PDO y establecemos la conexión
+                $miDB = new PDO("mysql:host=192.168.1.215;dbname=DAW215DBDepartamentos", "usuarioDAW215DBDepartamentos", "P@ssw0rd");//Instanciamos un objeto PDO y establecemos la conexión
                 $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Configuramos las excepciones
                 
                 $sql = "SELECT * from Departamento";
-                $consulta = $miDB->prepare($sql);//Preparamos la consulta
-                $consulta->execute();//Ejecutamos la consulta
+                $consulta = $miDB->query($sql);
                 
         ?>
 
@@ -34,23 +30,15 @@
                     <th>VolumenNegocio</th>
                 </tr>
                 
-                <?php 
-                $registro = $consulta->fetchObject();
-                    while($registro){ 
-                ?>
+                <?php foreach ($consulta as $valor){ ?>
                 
                 <tr>
-                    <td><?php echo $registro->CodDepartamento ?></td>
-                    <td><?php echo $registro->DescDepartamento ?></td>
-                    <td><?php echo $registro->FechaBaja ?></td>
-                    <td><?php echo $registro->VolumenNegocio ?></td>
+                    <td><?php echo $valor['CodDepartamento'] ?></td>
+                    <td><?php echo $valor['DescDepartamento'] ?></td>
+                    <td><?php echo $valor['FechaBaja'] ?></td>
+                    <td><?php echo $valor['VolumenNegocio'] ?></td>
                 </tr>
-                
-                <?php 
-                    $registro = $consulta->fetchObject(); 
-                    }
-                ?>
-                
+                <?php } ?>
             </table>     
         <?php
             $numRegistros = $consulta->rowCount();
@@ -64,8 +52,6 @@
                 
                 echo "<span style='color: red;'>Error: </span>".$mensajeExcepcion."<br>";//Mostramos el mensaje de la excepción
                 echo "<span style='color: red;'>Código del error: </span>".$errorExcepcion;//Mostramos el código de la excepción
-            } finally {
-                unset($miDB);
             }
         ?>
         

@@ -22,16 +22,23 @@
                        INSERT INTO Departamento (CodDepartamento, DescDepartamento, VolumenNegocio) VALUES 
                             (:CodDepartamento, :DescDepartamento, :VolumenNegocio);
 EOD;
-                $consulta = $miDB ->prepare($sql);
+                $consulta = $miDB ->prepare($sql);//Preparamos la consulta
                 
-                $parametros[0] = [":CodDepartamento" => "EDF", ":DescDepartamento" => "Departamento de educación física", ":VolumenNegocio" => 1];
-                $parametros[1] = [":CodDepartamento" => "ART", ":DescDepartamento" => "Departamento de arte", ":VolumenNegocio" => 2];
-                $parametros[2] = [":CodDepartamento" => "MUS", ":DescDepartamento" => "Departamento de musica", ":VolumenNegocio" => 3];
+                $aDepartamentos = [["CodDepartamento" => "EDF", "DescDepartamento" => "Departamento de educación física", "VolumenNegocio" => 1],
+                                   ["CodDepartamento" => "ART", "DescDepartamento" => "Departamento de arte", "VolumenNegocio" => 2],
+                                   ["CodDepartamento" => "MUS", "DescDepartamento" => "Departamento de musica", "VolumenNegocio" => 3]];
                 
-                for($registro=0; $registro<=2; $registro++){
-                    $consulta->execute($parametros[$registro]);
+                $miDB->beginTransaction();//Deshabilitamos el autocommit
+                
+                foreach($aDepartamentos as $departamento){//Recorremos los registros que vamos a insertar en la tabla
+                    $parametros = [":CodDepartamento" => $departamento["CodDepartamento"], 
+                                   ":DescDepartamento" => $departamento["DescDepartamento"], 
+                                   ":VolumenNegocio" => $departamento["VolumenNegocio"]];
+                    $consulta->execute($parametros);//Ejecutamos la consulta
                 }
-
+                
+                $miDB->commit();
+                
             echo "<h3> <span style='color: green;'>"."Valores insertados con éxito </span></h3>";//Si no se ha producido ningún error nos mostrará "Conexión establecida con éxito"
             
             }catch (PDOException $excepcion) { //Código que se ejecutará si se produce alguna excepción
