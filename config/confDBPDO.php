@@ -1,17 +1,17 @@
 <?php
     //CONFIGURACIÓN CASA
-    /*
+    
     define('DNS', 'mysql:host=192.168.1.215;dbname=DAW215DBDepartamentos');//Dirección IP y nombre de la base de datos
     define('USER', 'usuarioDAW215DBDepartamentos');//Nombre de usuario de la base de datos
     define('PASSWORD', 'P@ssw0rd');//Contraseña del usuario de la base de datos
-    */
+    
     
     //CONFIGURACIÓN ENTORNO DE DESARROLLO
-    
+    /*
     define('DNS', 'mysql:host=192.168.20.19;dbname=DAW215DBDepartamentos');//Dirección IP y nombre de la base de datos
     define('USER', 'usuarioDAW215DBDepartamentos');//Nombre de usuario de la base de datos
     define('PASSWORD', 'P@ssw0rd');//Contraseña del usuario de la base de datos
-    
+    */
     
     //CONFIGURACIÓN ENTORNO DE EXPLOTACIÓN
     /*

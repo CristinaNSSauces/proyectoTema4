@@ -20,8 +20,8 @@
                 $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Configuramos las excepciones
                 
                 $sql = "SELECT * from Departamento";
-                $consulta = $miDB->prepare($sql);
-                $consulta->execute();
+                $consulta = $miDB->prepare($sql);//Preparamos la consulta
+                $consulta->execute();//Ejecutamos la consulta
                 
         ?>
 

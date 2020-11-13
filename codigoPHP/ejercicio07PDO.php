@@ -3,14 +3,16 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Ejercicio 6</title>         
+        <title>Ejercicio 7</title>         
     </head>
     <body>
         <?php
         /**
             *@author: Cristina Núñez
-            *@since: 05/11/2020
-            * Mostrar el contenido de la tabla Departamento y el número de registros.
+            *@since: 07/11/2020
+            * Página web que toma datos (código y descripción) de un fichero xml y los añade a la tabla
+              Departamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en el
+              directorio .../tmp/ del servidor
         */ 
             
         require_once "../config/confDBPDO.php";  
@@ -19,20 +21,33 @@
                 $miDB ->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Cuando se produce un error lanza una excepción utilizando PDOException.
                 
                 $sql = <<<EOD
-                       INSERT INTO Departamento (CodDepartamento, DescDepartamento, VolumenNegocio) VALUES 
-                            (:CodDepartamento1, :DescDepartamento1, :VolumenNegocio1),
-                            (:CodDepartamento2, :DescDepartamento2, :VolumenNegocio2),
-                            (:CodDepartamento3, :DescDepartamento3, :VolumenNegocio3); 
+                            Insert into Departamento values
+                            (:CodDepartamento, :DescDepartamento, :FechaBaja, :VolumenNegocio);
 EOD;
-                $consulta = $miDB ->prepare($sql);
+                $consulta = $miDB->prepare($sql);//Preparamos la consulta
                 
-                $parametros = [":CodDepartamento1" => "EDF", ":DescDepartamento1" => "Departamento de educación física", ":VolumenNegocio1" => 1,
-                                   ":CodDepartamento2" => "ART", ":DescDepartamento2" => "Departamento de arte", ":VolumenNegocio2" => 2,
-                                   ":CodDepartamento3" => "MUS", ":DescDepartamento3" => "Departamento de musica", ":VolumenNegocio3" => 3];
+                $archivoXML = new DOMDocument("1.0", "utf-8"); //Creamos un objeto DOMDocument con dos parámetros, la versión y la codificación del documento
+                $archivoXML->load('../tmp/tablaDepartamento.xml'); //Cargamos el documento XML
                 
-                $consulta -> execute($parametros);
-
-            echo "<h3> <span style='color: green;'>"."Valores insertados con éxito </span></h3>";//Si no se ha producido ningún error nos mostrará "Conexión establecida con éxito"
+                $numeroDepartamentos = $archivoXML->getElementsByTagName('Departamento')->count();//Guardamos el número de departamentos que hay en el archivoXML
+                for ($numeroDepartamento = 0; $numeroDepartamento<$numeroDepartamentos; $numeroDepartamento++){//Recorremos los departamentos
+                    
+                    $CodDepartamento=$archivoXML->getElementsByTagName("CodDepartamento")->item($numeroDepartamento)->nodeValue;//Guardamos el valor del elemento del cógido de departamento
+                    $DescDepartamento=$archivoXML->getElementsByTagName("DescDepartamento")->item($numeroDepartamento)->nodeValue;//Guardamos el valor del elemento de la descripción del departamento
+                    $FechaBaja=$archivoXML->getElementsByTagName("FechaBaja")->item($numeroDepartamento)->nodeValue;//Guardamos el valor del elemento de la fecha de baja
+                    if(empty($FechaBaja)){//Si el elemento de la feha de baja está vacío
+                        $FechaBaja = null;//Le asignamos el valor de null para que no de error a la hora de insertar en la base de datos
+                    }
+                    $VolumenNegocio=$archivoXML->getElementsByTagName("VolumenNegocio")->item($numeroDepartamento)->nodeValue;//Guardamos el valor del elemento del volumen de negocio
+                    
+                    //Asignamos al array parametros los diferentes valores de los campos guardados
+                    $parametros = [":CodDepartamento" => $CodDepartamento,
+                                   ":DescDepartamento" => $DescDepartamento,
+                                   ":FechaBaja" => $FechaBaja,
+                                   ":VolumenNegocio" => $VolumenNegocio];
+                    $consulta -> execute($parametros);//Ejecutamos la consulta con los parámetros
+                }
+                echo "<h3> <span style='color: green;'>"."Importación llevada a cabo con éxito </span></h3>";
             
             }catch (PDOException $excepcion) { //Código que se ejecutará si se produce alguna excepción
                 $errorExcepcion = $excepcion->getCode();//Almacenamos el código del error de la excepción en la variable $errorExcepcion

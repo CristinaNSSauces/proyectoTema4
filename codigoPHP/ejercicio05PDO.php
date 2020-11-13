@@ -17,8 +17,8 @@
             try {
                 $miDB = new PDO(DNS,USER,PASSWORD);//Instanciamos un objeto PDO y establecemos la conexión
                 $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Configuramos las excepciones
-                $miDB->beginTransaction();
-                /*
+                $miDB->beginTransaction();//Deshabilitamos el autocommit
+                
                 $sql1 = <<<EOD
                         INSERT INTO Departamento(CodDepartamento,DescDepartamento,VolumenNegocio) VALUES
                         ('EDF', 'Departamento de educación física', 1);
@@ -34,24 +34,11 @@ EOD;
                         ('MUS', 'Departamento de música', 3);
 EOD;
                 
-                $miDB->exec($sql1);
-                $miDB->exec($sql2);
-                $miDB->exec($sql3);
-                */
-                $sql = <<<EOD
-                       INSERT INTO Departamento (CodDepartamento, DescDepartamento, VolumenNegocio) VALUES 
-                            (:CodDepartamento1, :DescDepartamento1, :VolumenNegocio1),
-                            (:CodDepartamento2, :DescDepartamento2, :VolumenNegocio2),
-                            (:CodDepartamento3, :DescDepartamento3, :VolumenNegocio3); 
-EOD;
-                $consulta = $miDB ->prepare($sql);
+                $miDB->exec($sql1);//Ejecutamos la primera sentencia
+                $miDB->exec($sql2);//Ejecutamos la segunda sentencia
+                $miDB->exec($sql3);//Ejecutamos la tercera sentencia
                 
-                $parametros = [":CodDepartamento1" => "EDF", ":DescDepartamento1" => "Departamento de educación física", ":VolumenNegocio1" => 1,
-                               ":CodDepartamento2" => "ART", ":DescDepartamento2" => "Departamento de arte", ":VolumenNegocio2" => 2,
-                               ":CodDepartamento3" => "MUS", ":DescDepartamento3" => "Departamento de musica", ":VolumenNegocio3" => 3];
-                
-                $consulta -> execute($parametros);
-                $miDB->commit();
+                $miDB->commit(); //Confirmamos y consolidamos los cambios
 
                 echo "<h3> <span style='color: green;'>"."Valores insertados con éxito </span></h3>";//Si no se ha producido ningún error nos mostrará "Conexión establecida con éxito"
             }
