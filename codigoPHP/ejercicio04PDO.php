@@ -10,8 +10,8 @@
         /**
             *@author: Cristina Núñez
             *@since: 28/10/2020
-            *description:  Formulario para añadir un departamento a la tabla Departamento con validación de entrada y
-                            control de errores
+            *description:  Formulario   de   búsqueda   de   departamentos   por   descripción   
+                           (por   una   parte   del   campoDescDepartamento, si el usuario no pone nada deben aparecer todos los departamentos)
 
         */
         require_once '../core/201020libreriaValidacion.php';
@@ -27,7 +27,7 @@
         $aErrores = ['DescDepartamento' => null];
         
         //Declaramos el array del formulario y lo inicializamos a null
-        $aFormulario = ['DescDepartamento' => null];
+        //$aFormulario = ['DescDepartamento' => null];
         
             if(isset($_REQUEST['enviar'])){ //Comprobamos que el usuario haya enviado el formulario
                 $aErrores['DescDepartamento'] = validacionFormularios::comprobarAlfaNumerico($_REQUEST['DescDepartamento'], 255, 1, OPCIONAL);
@@ -44,18 +44,18 @@
                 $entradaOK = false; // Si el usuario no ha enviado el formulario asignamos a entradaOK el valor false para que rellene el formulario
             }
             if($entradaOK){ // Si el usuario ha rellenado el formulario correctamente rellenamos el array aFormulario con las respuestas introducidas por el usuario
-                $aFormulario['DescDepartamento'] = $_REQUEST['DescDepartamento'];
+                //$aFormulario['DescDepartamento'] = $_REQUEST['DescDepartamento'];
                 
                 try {
                 $miDB = new PDO(DNS,USER,PASSWORD);//Instanciamos un objeto PDO y establecemos la conexión
                 $miDB->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);//Configuramos las excepciones
                 
-                $sql = " select * from Departamento where DescDepartamento like '%{$aFormulario['DescDepartamento']}%';";
+                $sql = " select * from Departamento where DescDepartamento like '%{$_REQUEST['DescDepartamento']}%';";
                 
-                $consulta = $miDB->prepare($sql);
-                $consulta->execute();
+                $consulta = $miDB->prepare($sql);//Preparamos la consulta
+                $consulta->execute();////Ejecutamos la consulta
                 
-                if($consulta->rowCount()>0){ 
+                if($consulta->rowCount()>0){//Si hay algún resultado
             ?>
                 <table>
                     <tr>
@@ -66,19 +66,19 @@
                     </tr>
 
                     <?php 
-                    $registro = $consulta->fetchObject();
-                    while($registro){ 
+                    $registro = $consulta->fetchObject();//Obtenemos la primera fila del resultado de la consulta y avanzamos el puntero a la siguiente fila
+                    while($registro){ //Mientras haya un registro
                 ?>
                 
                 <tr>
-                    <td><?php echo $registro->CodDepartamento ?></td>
-                    <td><?php echo $registro->DescDepartamento ?></td>
-                    <td><?php echo $registro->FechaBaja ?></td>
-                    <td><?php echo $registro->VolumenNegocio ?></td>
+                    <td><?php echo $registro->CodDepartamento //Obtenemos el valor del código de departamento del registro ?></td>
+                    <td><?php echo $registro->DescDepartamento //Obtenemos la descripción del departamento del registro ?></td>
+                    <td><?php echo $registro->FechaBaja //Obtenemos la fecha de baja del registro ?></td>
+                    <td><?php echo $registro->VolumenNegocio //Obtenemos el volumen de negocio del registro ?></td>
                 </tr>
                 
                 <?php 
-                    $registro = $consulta->fetchObject();
+                    $registro = $consulta->fetchObject();//Obtenemos la siguiente fila del resultado de la consulta y avanzamos el puntero a la siguiente fila
                     }
                 ?>
                 </table>     

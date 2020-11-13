@@ -46,6 +46,23 @@
                     <td><a href="scriptDB/BorraDAW215DBDepartamentos.sql"><img src="webroot/media/descargar.png" alt="descargar script" width="40px"></a></td>
                     <td><a href="mostrarcodigo/muestraScriptBorraDAW215DBDepartamentos.php"><img src="webroot/media/code.png" alt="ver script" width="40px"></a></td>
                 </tr>
+                <!--
+                <tr>
+                    <td>Script CreaDAW215DBDepartamentos.php</td>
+                    <td><a href="scriptDB/crear.php"><img src="webroot/media/run.png" alt="ejecutar script" width="40px"></a></td>
+                    <td><a href="mostrarcodigo/muestraCrear1and1.php"><img src="webroot/media/code.png" alt="ver script" width="40px"></a></td>
+                </tr>
+                <tr>
+                    <td>Script CargaInicialDAW215DBDepartamentos.php</td>
+                    <td><a href="scriptDB/CargaInicial.php"><img src="webroot/media/run.png" alt="ejecutar script" width="40px"></a></td>
+                    <td><a href="mostrarcodigo/muestraCargaInicial1and1.php"><img src="webroot/media/code.png" alt="ver script" width="40px"></a></td>
+                </tr>
+                <tr>
+                    <td>Script BorrarDAW215DBDepartamentos.php</td>
+                    <td><a href="scriptDB/Borrar.php"><img src="webroot/media/run.png" alt="ejecutar script" width="40px"></a></td>
+                    <td><a href="mostrarcodigo/muestraBorrar1and1.php"><img src="webroot/media/code.png" alt="ver script" width="40px"></a></td>
+                </tr>
+                -->
                 <tr>
                     <th>Archivos de configuración</th>
                     <th>Mostrar</th>
@@ -110,6 +127,34 @@
                     <td class="enunciado">06. Pagina web que cargue registros en la tabla Departamento desde un array departamentos nuevos utilizando una consulta preparada</td>
                     <td><a href="codigoPHP/ejercicio06PDO.php"><img src="webroot/media/run.png" alt="ejecutar código PDO" width="30px"></a></td>
                     <td><a href="mostrarcodigo/muestraEjercicio06PDO.php"><img src="webroot/media/code.png" alt="ver código PDO" width="40px"></a></td>
+                    <!-- <td><a href="#"><img src="webroot/media/run.png" alt="ejecutar código MySQLi" width="30px"></a></td> -->
+                    <!-- <td><a href="#"><img src="webroot/media/code.png" alt="ver código MySQLi" width="40px"></a></td> -->
+                </tr>
+                <tr>
+                    <td class="enunciado">07. Página web que toma datos (código y descripción) de un fichero xml y los añade a la tablaDepartamento de nuestra base de datos. (IMPORTAR). El fichero importado se encuentra en eldirectorio .../tmp/ del servidor</td>
+                    <td><a href="codigoPHP/ejercicio07PDO.php"><img src="webroot/media/run.png" alt="ejecutar código PDO" width="30px"></a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio07PDO.php"><img src="webroot/media/code.png" alt="ver código PDO" width="40px"></a></td>
+                    <!-- <td><a href="#"><img src="webroot/media/run.png" alt="ejecutar código MySQLi" width="30px"></a></td> -->
+                    <!-- <td><a href="#"><img src="webroot/media/code.png" alt="ver código MySQLi" width="40px"></a></td> -->
+                </tr>
+                <tr>
+                    <td></td>
+                    <th colspan="2">tmp</th>
+                    <th colspan="2">Local</th>
+                </tr>
+                <tr>
+                    <th> </th>
+                    <th>Ejecutar</th>
+                    <th>Mostrar</th>
+                    <th>Ejecutar</th>
+                    <th>Mostrar</th>
+                </tr>
+                <tr>
+                    <td class="enunciado">08. Página web que toma datos (código y descripción) de la tabla Departamento y guarda en unfichero departamento.xml. (COPIA DE SEGURIDAD / EXPORTAR). El fichero exportado seencuentra en el directorio .../tmp/ del servidor</td>
+                    <td><a href="codigoPHP/ejercicio08PDO.php"><img src="webroot/media/run.png" alt="ejecutar código PDO" width="30px"></a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio08PDO.php"><img src="webroot/media/code.png" alt="ver código PDO" width="40px"></a></td>
+                    <td><a href="codigoPHP/ejercicio08PDOLocal.php"><img src="webroot/media/run.png" alt="ejecutar código PDO" width="30px"></a></td>
+                    <td><a href="mostrarcodigo/muestraEjercicio08PDOLocal.php"><img src="webroot/media/code.png" alt="ver código PDO" width="40px"></a></td>
                     <!-- <td><a href="#"><img src="webroot/media/run.png" alt="ejecutar código MySQLi" width="30px"></a></td> -->
                     <!-- <td><a href="#"><img src="webroot/media/code.png" alt="ver código MySQLi" width="40px"></a></td> -->
                 </tr>
